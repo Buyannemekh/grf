@@ -1,15 +1,18 @@
 library(DiagrammeR)
 
 
+non_leaf_nodes = 31
+n = non_leaf_nodes * 2 + 1
+
 nodes <- 
-  create_node_df(n=63, 
+  create_node_df(n=n, 
                  label = TRUE, 
-                 value = c(1:63), 
+                 value = c(1:n), 
                  shape = "rectangle")
 
 edges <- 
-  create_edge_df(from = rep(1:31, each = 2),
-                 to = c(2:63)
+  create_edge_df(from = rep(1:non_leaf_nodes, each = 2),
+                 to = c(2:n)
   )
 
 graph <-
@@ -19,13 +22,13 @@ graph <-
   set_node_attrs(
     node_attr = info,
     values = "leaf \n node",
-    nodes = c(32:63)
+    nodes = c(non_leaf_nodes+1:n)
   ) %>% 
   set_node_attr_to_display(
-    nodes = c(32:63),
+    nodes = c(non_leaf_nodes+1:n),
     attr = info) %>% 
   set_node_attr_to_display(
-    nodes = c(1:31), 
+    nodes = c(1:non_leaf_nodes), 
     attr = value
   )
 
