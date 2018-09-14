@@ -1,14 +1,16 @@
 library(DiagrammeR)
 
 
-non_leaf_nodes = 31
+non_leaf_nodes = 15
 n = non_leaf_nodes * 2 + 1
 
 nodes <- 
   create_node_df(n=n, 
                  label = TRUE, 
                  value = c(1:n), 
-                 shape = "rectangle")
+                 shape = "box",
+                 style = "filled"
+                 )
 
 edges <- 
   create_edge_df(from = rep(1:non_leaf_nodes, each = 2),
@@ -21,7 +23,7 @@ graph <-
                directed = TRUE) %>% 
   set_node_attrs(
     node_attr = info,
-    values = "leaf \n node",
+    values = "leaf node \n samples = k" ,
     nodes = c(non_leaf_nodes+1:n)
   ) %>% 
   set_node_attr_to_display(
@@ -30,10 +32,17 @@ graph <-
   set_node_attr_to_display(
     nodes = c(1:non_leaf_nodes), 
     attr = value
+  ) %>% 
+  add_global_graph_attrs(
+    attr = "layout",
+    value = "dot",
+    attr_type = "graph"
   )
 
-graph %>% get_node_df()
+#graph %>% get_node_df()
 
-render_graph(graph, layout = "tree")
+#render_graph(graph, layout = "tree")
 
+dot_file <- generate_dot(graph)
 
+grViz(generate_dot(graph))

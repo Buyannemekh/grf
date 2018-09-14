@@ -1,0 +1,13 @@
+digraph {
+  node [shape=box] ;
+  1 [label = "aaa", style = filled];
+  2 [label = "bbb", style = filled];
+  3 [label = "Same size
+These letters
+should be smaller", style = filled];
+  4 [label = "ccc", style = filled];
+  1 ->4;
+  2->3;
+  3->1;
+  3->4;
+}
