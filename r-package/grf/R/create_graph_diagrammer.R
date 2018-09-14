@@ -2,23 +2,35 @@ library(DiagrammeR)
 
 
 nodes <- 
-  create_node_df(n=7)
+  create_node_df(n=63, 
+                 label = TRUE, 
+                 value = c(1:63), 
+                 shape = "rectangle")
 
 edges <- 
-  create_edge_df(from = c(1, 1, 2, 2, 3, 3),
-                 to = c(2, 3, 4, 5, 6, 7), 
+  create_edge_df(from = rep(1:31, each = 2),
+                 to = c(2:63)
   )
 
 graph <-
   create_graph(nodes_df = nodes,
                edges_df = edges, 
-               directed = TRUE)
+               directed = TRUE) %>% 
+  set_node_attrs(
+    node_attr = info,
+    values = "leaf \n node",
+    nodes = c(32:63)
+  ) %>% 
+  set_node_attr_to_display(
+    nodes = c(32:63),
+    attr = info) %>% 
+  set_node_attr_to_display(
+    nodes = c(1:31), 
+    attr = value
+  )
 
-render_graph(graph, layout = "fr")
+graph %>% get_node_df()
+
+render_graph(graph, layout = "tree")
 
 
-f_graph <- 
-  create_graph() %>% 
-  add_balanced_tree(k=2, h=2) 
-
-render_graph(f_graph, layout = "tree")
